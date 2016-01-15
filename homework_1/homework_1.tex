@@ -173,7 +173,11 @@
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
-  Explain why virtual memory in  a system without Transation Lookaside Buffer will be much slower than physical memory.
+  Explain why virtual memory in a system without Translation Lookaside Buffer will be much slower than physical memory. \\
+
+  \textbf{Solution} \\
+
+  If a system did not contain a Translation Lookaside Buffer it would be much slower than physical memory because there would be an extra step involved in looking a page address up. Because on every reference the virtual page number is looked up in TLB, and without a TLB, it would result in a miss. A TLB miss takes about 13 clock cycles.
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
