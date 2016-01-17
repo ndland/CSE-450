@@ -8,8 +8,8 @@
 \usepackage{tikz}
 \usepackage[plain]{algorithm}
 \usepackage{algpseudocode}
+\usepackage{minted}
 
-\usetikzlibrary{automata,positioning}
 
 %
 % Basic Document Settings
@@ -181,6 +181,47 @@
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
+  Describe what is wrong with the following function and propose modifications to fix it, submit with a test program and test results.
+  \begin{minted}[linenos]{C}
+
+char *string_duplicator(char *s) {
+  char *cpy;
+  for (i = 0; i <= strlen(s); i++) {
+    cpy[i] = s[i];
+  }
+  return(cpy);
+}
+\end{minted}
+
+  \textbf{Solution} \\
+
+  The problem with the previous function was two fold; the first issue was `strlen` was part of a library that was not imported. The second issue was that the variable 'i' was not declared. \\
+
+  \textbf{Proposed Solution}
+
+  \begin{minted}[linenos]{C}
+#include <stdio.h>
+#include <string.h>
+
+// Prototype so that the main function can call
+// string_duplicator
+char *string_duplicator(char *s);
+
+int main(int argc, char const *argv[]) {
+  char testString[] = "hello";
+  printf("%s\n", string_duplicator(testString));
+}
+
+char *string_duplicator(char *s) {
+  char *cpy;
+  for (int i = 0; i <= strlen(s); i++) {
+    cpy[i] = s[i];
+  }
+  return(cpy);
+}
+  \end{minted}
+
+  This produces a result of \textbf{Hello}.
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
