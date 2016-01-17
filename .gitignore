@@ -233,3 +233,5 @@ crashlytics-build.properties
 
 # Debug files
 *.dSYM/
+
+.DS_Store
