@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <string.h>
+#include <iostream>
 
 // Prototype so that the main function can call
 // string_duplicator
@@ -17,4 +16,3 @@ char *string_duplicator(char *s) {
         }
         return(cpy);
 }
-g

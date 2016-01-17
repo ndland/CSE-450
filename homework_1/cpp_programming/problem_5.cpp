@@ -1,3 +1,5 @@
+#include <iostream>
+
 int test(char *s) {
         int x = 0;
         unsigned char c; while (*s) {
