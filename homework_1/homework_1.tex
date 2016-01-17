@@ -199,8 +199,7 @@ char *string_duplicator(char *s) {
   \textbf{Proposed Solution}
 
   \begin{minted}[linenos]{C++}
-#include <stdio.h>
-#include <string.h>
+#include <iostream>
 
 // Prototype so that the main function can call
 // string_duplicator
@@ -247,6 +246,8 @@ int test(char *s) {
   \textbf{Proposed Solution}
 
   \begin{minted}[linenos]{C++}
+#include <iostream>
+
 int test(char *s) {
         int x = 0;
         unsigned char c; while (*s) {
