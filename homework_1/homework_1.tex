@@ -154,9 +154,9 @@
     \textbf{Solution}
 
     \begin{enumerate}
-      \item $2^{15} = 32768$ bytes can be addressed.
-      \item $-2^{14} = -16384$ is the samllest negative integer \& $2^{14} - 1
-      = 16383$ is the largest integer.
+      \item $2^{15} = 32,768$ bits can be addressed, which is $\frac{32768}{8} = 4,096$ bytes.
+      \item $-2^{14} = -16,384$ is the samllest negative integer \& $2^{14} - 1
+      = 16,383$ is the largest integer.
     \end{enumerate}
 
 \end{homeworkProblem}
@@ -182,14 +182,13 @@
 
 \begin{homeworkProblem}
   Describe what is wrong with the following function and propose modifications to fix it, submit with a test program and test results.
-  \begin{minted}[linenos]{C}
-
+  \begin{minted}[linenos]{C++}
 char *string_duplicator(char *s) {
-  char *cpy;
-  for (i = 0; i <= strlen(s); i++) {
-    cpy[i] = s[i];
-  }
-  return(cpy);
+        char *cpy;
+        for (int i = 0; i <= strlen(s); i++) {
+                cpy[i] = s[i];
+        }
+        return(cpy);
 }
 \end{minted}
 
@@ -199,7 +198,7 @@ char *string_duplicator(char *s) {
 
   \textbf{Proposed Solution}
 
-  \begin{minted}[linenos]{C}
+  \begin{minted}[linenos]{C++}
 #include <stdio.h>
 #include <string.h>
 
@@ -208,16 +207,16 @@ char *string_duplicator(char *s) {
 char *string_duplicator(char *s);
 
 int main(int argc, char const *argv[]) {
-  char testString[] = "hello";
-  printf("%s\n", string_duplicator(testString));
+        char testString[] = "hello";
+        printf("%s\n", string_duplicator(testString));
 }
 
 char *string_duplicator(char *s) {
-  char *cpy;
-  for (int i = 0; i <= strlen(s); i++) {
-    cpy[i] = s[i];
-  }
-  return(cpy);
+        char *cpy = new char;
+        for (int i = 0; i <= strlen(s); i++) {
+                cpy[i] = s[i];
+        }
+        return(cpy);
 }
   \end{minted}
 
@@ -225,6 +224,48 @@ char *string_duplicator(char *s) {
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
+  Please submit a testing program and test results together with a brief readme file describing what the main function of the function test.
+
+  \begin{minted}[linenos]{C++}
+int test(char *s) {
+        int x = 0;
+        unsigned char c; while (*s) {
+                c = *s; while (c) {
+                        if (c & 1) x++;
+                        c = c >>1;
+                }
+                s++;
+        }
+        return x;
+}
+  \end{minted}
+
+  \textbf{Explanation of test function} \\
+
+  The above function loops through each character of 's' and checks to see if there is a '1' stored in the address of that character. If there is a one, it increments x by 1, if there is no one, it bitshifts right by 1. \\
+
+  \textbf{Proposed Solution}
+
+  \begin{minted}[linenos]{C++}
+int test(char *s) {
+        int x = 0;
+        unsigned char c; while (*s) {
+                c = *s; while (c) {
+                        if (c & 1) x++;
+                        c = c >>1;
+                }
+                s++;
+        }
+        return x;
+}
+
+int main(int argc, char const *argv[]) {
+        char testString[] = "Hello, World";
+        printf("%d\n", test(testString));
+}
+  \end{minted}
+
+This produces a result of \textbf{46}.
 \end{homeworkProblem}
 
 \end{document}
