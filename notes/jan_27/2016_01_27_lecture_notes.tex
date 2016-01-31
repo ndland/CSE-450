@@ -1,0 +1,84 @@
+\documentclass[titlepage]{article}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{datetime}
+
+\fancyhf{}
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\newcommand{\noteTitle}{\formatdate{27}{1}{2016} --- Notes}
+\newcommand{\professor}{Guangzhi Qu}
+\newcommand{\class}{CSE 450 Operating Systems}
+\newcommand{\classTime}{Monday \& Wednesday 3:30 --- 5:17 pm}
+\newcommand{\notesAuthor}{Nicholas Land}
+
+\pagestyle{fancy}
+\lhead{\notesAuthor}
+\chead{\class}
+\rhead{\noteTitle}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\title{
+  \textmd{\LARGE{\textbf{\noteTitle}}}\\
+  \textmd{\Large{\textit{\class}}}\\
+  \textmd{\Large{\textit{Professor\ \professor}}}\\
+  \textmd{\normalsize{\classTime}}\\
+  \vspace{3.5in}
+  \textmd{\LARGE{\textbf{\notesAuthor}}}\\
+  \date{}
+}
+
+\begin{document}
+  \maketitle
+  \section*{Process State}
+  \begin{itemize}
+    \item As a process executes, it changes \textit{state}
+
+    \begin{itemize}
+      \item \textbf{new} The process is being created
+      \item \textbf{ready} The process is waiting to run
+      \item \textbf{running} Instructions are being executed
+      \item \textbf{waiting} Process waiting for some event to occur
+      \item \textbf{terminatied} The process has finished execution
+    \end{itemize}
+  \end{itemize}
+
+  \begin{itemize}
+    \item {\color{blue} \textbf{Job queue}} --- set of all processes in the system
+    \item {\color{blue} \textbf{Ready queue}} --- set of all processes residing in main memory, ready and waiting to be exectued
+    \item {\color{blue} \textbf{Device queues}} --- set of processes waiting for an I/O device
+    \item {\color{blue} \textbf{Scheduling}} --- Processes (PCBs) migrate among the various queues
+    \item {\color{blue} \textbf{Long-term scheduler}} (or job scheduler) --- selects processes should be brought into the ready queue
+    \begin{itemize}
+      \item Long-term scheduler is invoced very infrequently
+      \item The long-term scheduler controls the \textit{degree of multiprogramming}
+    \end{itemize}
+    \item {\color{blue} \textbf{Short-term scheduler}} (or CPU scheduler) --- selects which processes should be next and allocates the CPU
+    \begin{itemize}
+      \item Short-term scheduler is invoced very frequently (milliseconds) $\Rightarrow$ (must be fast)
+    \end{itemize}
+    \item Praent processes create children processes, which, in turn create other processes, forming a tree of processes
+    \item Must construct new PCB
+    \item Resource sharing strategies
+    \begin{itemize}
+      \item Parant and children share all resources (I/O states, address space information)
+      \item Children share a subset of parent's resources
+      \item Parent and child share no resources (UNIX exec())
+    \end{itemize}
+    \item Execution
+    \begin{itemize}
+      \item Parant and child execute concurrently
+      \item Parent waits until the children terminate
+    \end{itemize}
+  \end{itemize}
+\end{document}

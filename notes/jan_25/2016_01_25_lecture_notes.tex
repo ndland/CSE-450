@@ -1,0 +1,92 @@
+\documentclass[titlepage]{article}
+\usepackage{fancyhdr}
+\usepackage{datetime}
+\usepackage{color}
+\fancyhf{}
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\newcommand{\noteTitle}{\formatdate{25}{1}{2016} --- Notes}
+\newcommand{\professor}{Guangzhi Qu}
+\newcommand{\class}{CSE 450 Operating Systems}
+\newcommand{\classTime}{Monday \& Wednesday 3:30 --- 5:17 pm}
+\newcommand{\notesAuthor}{Nicholas Land}
+
+\pagestyle{fancy}
+\lhead{\notesAuthor}
+\chead{\class}
+\rhead{\noteTitle}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\title{
+  \textmd{\LARGE{\textbf{\noteTitle}}}\\
+  \textmd{\Large{\textit{\class}}}\\
+  \textmd{\Large{\textit{Professor\ \professor}}}\\
+  \textmd{\normalsize{\classTime}}\\
+  \vspace{3.5in}
+  \textmd{\LARGE{\textbf{\notesAuthor}}}\\
+  \date{}
+}
+
+\begin{document}
+  \maketitle
+
+  \section*{What Computer System Structure}
+  \begin{itemize}
+    \item Computer system can be divided into four components
+    \begin{itemize}
+      \item Hardware --- provides basic computing resources
+      \begin{itemize}
+        \item CPU, memory, I/O devices
+      \end{itemize}
+      \item Operating System
+      \begin{itemize}
+        \item Controls and coordinates use of hardware among various applications and users
+      \end{itemize}
+      \item Application programs ---  define the ways in which the system resources are used to solve the computing problems of the users
+      \begin{itemize}
+        \item Word processors, compilers, web browsers, database systems, \& video games
+      \end{itemize}
+      \item Users
+      \begin{itemize}
+        \item People, machines, \& other computers
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+
+  \section*{What is an Operating System?}
+  \begin{itemize}
+    \item An operating system (OS) is a collection of software that manages computer hardware resources and provides common services for computer programs.
+    \begin{itemize}
+      \item The OS is a vital component of the system software in a computer system.
+      \item Application Programs usually require an OS to function
+      \item A program that acts as an intermediary between a user of a computer and sthe computer hardware.
+    \end{itemize}
+    \item Operating System {\color{red} \textbf{goals}}:
+    \begin{itemize}
+      \item Execute user programs and make solving problems easier.
+      \item Make the computer system convient to user.
+      \item Use the computer hardware in an efficient manner.
+    \end{itemize}
+  \end{itemize}
+
+  \section*{Computer-System Operation}
+  \begin{itemize}
+    \item I/O devices and the computer execute concurrently
+    \item Each device controller is in charge of a particular device type
+    \item Each device controller has a local buffer
+    \item CPU moves data from/to main memory to/from local buffers
+    \item I/O is from the device to local buffer of controller
+    \item Device controller informs CPU that is has finished its operation by causing an \textit{interrupt}
+  \end{itemize}
+
+\end{document}
