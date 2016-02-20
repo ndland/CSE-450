@@ -216,7 +216,7 @@
       \item Is \textbf{AEBCBCDAA} a possible output sequence when this set of processes runs? Clarify your answer.
     \end{enumerate}
 
-    \textbf{\textsc{Solution}} \\
+    \textbf{\textsc{Solution}}
 
     \begin{enumerate}[label=\alph*)]
       \item Three \textbf{A}\textquotesingle s are printed because S is decremented, but it is never incremented.
@@ -234,5 +234,54 @@
   \end{homeworkProblem}
 
   \pagebreak
+
+  \begin{homeworkProblem}
+    Consider the following two processes $P[i]$ and $P[j]$. Initially, flag[i] = flag [j] = false.
+
+    \begin{multicols}{2}
+
+      \begin{minted}{C++}
+        Do {
+          flag[i]=true;
+          While(flag[j]);
+
+          critical section
+
+          flag[i] = false;
+
+          remainder section
+        } while(1);
+      \end{minted}
+
+      \vfill
+      \columnbreak
+
+      \begin{minted}{C++}
+        Do {
+          flag[j]=true;
+          While(flag[i]);
+
+          critical section
+
+          flag[j] = false;
+
+          remainder section
+        } while(1);
+      \end{minted}
+    \end{multicols}
+
+    \begin{enumerate}[label=\alph*)]
+      \item Does the above program satisfy the `progress' requirement? Justify your answer with an informal proof or counterexample. [Simple `Yes' or `No' without explanation]
+      \item Is mutual exclusion assured? Justify your answer with an informal proof or counterexample.
+    \end{enumerate}
+
+    \textbf{\textsc{Solution}}
+
+    \begin{enumerate}[label=\alph*)]
+      \item Yes, this follows the `progress' requirement. According to the `progress' requirement, if no process is executing in it\textquotesingle s critical section, and some process wishes to enter their critical section, then so long as that process is not in the remainder section it will enter the critical section. In the example above once $p[i]$ starts then it sets $p[j]$ to true. Once $p[j]$ begins then it will enter the critical section, but while that happens, $p[i]$ is also set to true. Being that $p[j]$ is in the critical section, that means that $p[i]$ will also be able to enter the critical section being that it is not currently in the remainder section. Therefore, satisfying the `progress' requirement.
+
+      \item Mutual exclusion is assured. In either case each process $p[i]$ \& $p[j]$ can only do one thing at a time. Even if one process starts a little bit before another one, we\textquotesingle ll assume that the while() loop will still be executed before the other process finishes the critical section and turns flag[] to false. Because of this, we can be assured that mutual exclusion is achieved.
+    \end{enumerate}
+  \end{homeworkProblem}
 
 \end{document}
