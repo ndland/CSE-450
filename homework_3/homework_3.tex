@@ -6,6 +6,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{inconsolata}
+\usepackage{multicol}
+\usepackage{enumitem}
 
 
 %
@@ -153,10 +155,84 @@
   \end{homeworkProblem}
 
   \begin{homeworkProblem}
-    In the following code, four processes produce output using the routine “printf” and synchronize using three semaphores `R', `S' and `T.' We assume function `printf' wont cause context switch.
+    In the following code, four processes produce output using the routine `printf' and synchronize using three semaphores `R', `S' and `T.' \underline{We assume function `printf' wont cause context switch.}
+
+    \begin{minted}{C++}
+      Semaphore R=1, S=3, T=0; /* Initialization */
+    \end{minted}
+
+    \begin{multicols}{4}
+      \begin{minted}{C++}
+        /* Process 1 */
+        while(true) {
+          P(S);
+          printf('A');
+        }
+      \end{minted}
+
+      \vfill
+      \columnbreak
+
+      \begin{minted}{C++}
+        /* Process 2 */
+        while(true) {
+          P(T);
+          printf('B');
+          printf('C');
+          V(T);
+        }
+      \end{minted}
+
+      \vfill
+      \columnbreak
+
+      \begin{minted}{C++}
+        /* Process 3 */
+        while(true) {
+          P(T);
+          printf('D');
+          V(R);
+        }
+      \end{minted}
+
+      \vfill
+      \columnbreak
+
+      \begin{minted}{C++}
+        /* Process 4 */
+        while(true) {
+          P(R);
+          printf('E');
+          V(T);
+        }
+      \end{minted}
+    \end{multicols}
+
+    \begin{enumerate}[label=\alph*)]
+      \item How many \textbf{A}\textquotesingle s and \textbf{B}\textquotesingle s are printed when this set of processes runs?
+
+      \item What is the smallest number of \textbf{D}\textquotesingle s that might be printed when this set of processes runs?
+
+      \item Is \textbf{AEBCBCDAA} a possible output sequence when this set of processes runs? Clarify your answer.
+    \end{enumerate}
 
     \textbf{\textsc{Solution}} \\
 
+    \begin{enumerate}[label=\alph*)]
+      \item Three \textbf{A}\textquotesingle s are printed because S is decremented, but it is never incremented.
+
+      B can be printed 0, 1, or \{B\}* times. It is possible that be could be infinite. However, It is also possible that process 3 and process 4 could be in an infinite loop, and in that case B would not be printed. It could also be that B could get printed only one time, and then process 3 and 4 are in an infinite loop. B could be printed \{B\}* times if process 2 was in an infinite loop.
+
+      \item 0 times. If process 4 is run, it is possible that process 2 could run, and then go between process 2 and 4 infinitely so long as there is no waiting queue.
+
+      If there is a waiting queue then D can be printed infinitely many times.
+
+      \item Yes, because processes 1 could run, then process 4, then process 2, then process 2, then process 2, then process 2, then process 2, then process 3, then process 1, and finally process 1 if there is a waiting queue.
+
+      If there is a waiting queue then this would not be a possible output, because then process 2 is not able to be in the waiting queue when it is being executed. So the output BCBC would be unable to complete.
+    \end{enumerate}
   \end{homeworkProblem}
+
+  \pagebreak
 
 \end{document}
