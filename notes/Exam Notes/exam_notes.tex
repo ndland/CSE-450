@@ -1,0 +1,125 @@
+\documentclass[titlepage]{article}
+\usepackage{datetime}
+\usepackage[usenames, dvipsnames]{color}
+\usepackage{algorithm2e}
+
+
+\newcommand*{\redbold}[1]{\textbf{{\color{red} #1}}}
+\newcommand*{\redit}[1]{\textit{{\color{red} #1}}}
+\newcommand*{\bluebold}[1]{\textbf{{\color{blue} #1}}}
+\newcommand*{\orangebold}[1]{\textbf{{\color{Orange} #1}}}
+
+\title{Exam Notes}
+\author{Nicholas Land}
+\date{\formatdate{23}{02}{2016}}
+
+\begin{document}
+  \maketitle
+
+  \centering{\section*{Processes}}
+
+  \centering{\section*{Process \& Thread Synchronization}}
+
+  \paragraph{Background}
+
+  \begin{itemize}
+    \item Parallelism can provide a distinct way of conceptualizing problems
+    \item Concurrent access to shared data may result in data inconsistency
+    \item Maintaining data consistency requires mechanisms to ensure that the orderly exectution of cooperating processes
+    \item Suppose that we wanted to provide a solution to the consumer-producer problem that fills \redbold{all} the buffers
+
+    \begin{itemize}
+      \item We can do so by having an integer \redit{count} that keeps track of the number of full buffers
+      \item Initially the \redbold{count} is set to $0$
+      \item It is incremented by the producer after it produces a new buffer
+      \item It is decremented by the consumer after it consumers a buffer
+    \end{itemize}
+  \end{itemize}
+
+  \paragraph{Race Condition}
+
+  Race conditions can occur when two operations on shared variables are not \textbf{atomic}
+
+  \paragraph{Definitions}
+
+  \begin{itemize}
+    \item \bluebold{Synchronization} using atomic operations to ensure cooperation between threads
+    \item \bluebold{Critical Section} piece of code that only one thread can execute at once. Only one thread at a time will get into this section of code
+    \begin{itemize}
+      \item \orangebold{Mutual Exclusion} ensuring that only one thread does a particular thing at a time
+      \item \orangebold{Progress} selecting a thread to enter cannot postpone indefinitely
+      \item \orangebold{Bounded Waiting} before entering the critical section
+    \end{itemize}
+  \end{itemize}
+
+  {\color{blue} Important idea: all synchronization involves waiting}
+
+
+  \paragraph{Peterson's Solution}
+
+  \begin{itemize}
+    \item A solution for two processes
+    \item Assum that the LOAD and STORE instructions are atomic
+    \begin{itemize}
+      \item \textbf{Atomic} == cannot be interrupted
+    \end{itemize}
+    \item The two processes share two variables
+    \begin{itemize}
+      \item int {\color{red} turn}
+      \item Boolean {\color{red} flag[2]}
+    \end{itemize}
+    \item The variable {\color{red} turn} indicates whos turn it is to enter the critical section
+    \item the {\color{red} flag} array is used to indicate if a process is ready to enter the critical section
+    \begin{itemize}
+      \item {\color{red} flag[i] = true} implies that {\color{blue} $P_1$} is ready
+    \end{itemize}
+  \end{itemize}
+
+  \paragraph{Alogrithm for Process {\color{blue} $P_1$}}
+
+  \begin{center}
+    \begin{algorithm}
+      \SetAlgoLined
+      \While{true}{
+        flag[i] = TRUE\;
+        turn = j\;
+        \While{flag[j] \&\& turn == j}{
+          \vdots
+          CRITICAL SECTION\;
+          flag[i] = FALSE\;
+          REMAINDER SECTION\;
+        }
+      }
+      \caption{Peterson's Solution}
+    \end{algorithm}
+  \end{center}
+
+  \paragraph{Semaphore}
+
+  \begin{itemize}
+    \item Synchronization tool that does not require busy waiting
+    \begin{itemize}
+      \item integer variable
+      \item Two standard operations
+      \begin{itemize}
+        \item {\color{blue} S.wait()} $\Rightarrow$ P()
+        \item {\color{blue} S.signal()} $\Rightarrow$ V()
+      \end{itemize}
+      \item Less complicated
+    \end{itemize}
+    \item Can only be accessed via two indivisible (atomic) operations
+  \end{itemize}
+
+  \paragraph{Semaphore as General Synchronization Tool}
+
+  \begin{itemize}
+    \item {\color{red} Counting} semaphore -- integer value can range over unrestricted domain
+    \item {\color{red} Binary} semaphore -- integer value that can range only between 0 \& 1; can be simpler to implement
+    \begin{itemize}
+      \item Also known as {\color{red} mutex locks}
+    \end{itemize}
+    \item Can implement a counting semaphore {\color{blue} S} as a binary semaphore
+    \item Provides mutual exclusion
+  \end{itemize}
+
+\end{document}
