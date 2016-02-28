@@ -235,3 +235,4 @@ crashlytics-build.properties
 *.dSYM/
 
 .DS_Store
+~*
