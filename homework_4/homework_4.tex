@@ -283,4 +283,52 @@
     \end{center}
   \end{homeworkProblem}
 
+  \begin{homeworkProblem}
+    A Multilevel feedback queues are shown in the diagram below. The scheduler first executes all processes in Q0. Only when Q0 is empty will it execute processes in Q1, and only when Q0 and Q1 are empty will it execute processes in Q2. A process arriving for Q0 will preempt a process in Q1 or Q2, and a process arriving for Q1 will preempt a process in Q2; a process preempted in this case is put back to the head of the same queue; when this process is scheduled to run next time it will execute for the remaining of its allocated time quantum. A new process entering the system is put in Q0 and is given a time quantum of 8 milliseconds. If it does not finish within this time, it is preempted and moved to the tail of Q1. If Q0 is empty, the process at the head of Q1 is scheduled to run with a time quantum of 16 milliseconds. If it does not finish within this time, it is preempted and moved to the tail of Q2. Processes in Q2 are run on an FCFS basis. \\
+
+
+
+
+
+    \solution
+
+    \begin{center}
+      \begin{tabular}{| c | c | c | c |}
+        \hline
+        \textbf{Time} & $Q_0$ & $Q_1$ & $Q_2$ \\
+        \hline
+        0 & A(25) & &  \\
+        \hline
+        5 & B(28) A(20) & & \\
+        \hline
+        8 & B(25) A(17) & & \\
+        \hline
+        13 & B(20) & A(12) & \\
+        \hline
+        19 & C(11) & B(14) A(6) & \\
+        \hline
+        24 & C(6) & B(9) A(1) & \\
+        \hline
+        25 & D(19) C(5) & B(8) & Process A terminates \\
+        \hline
+        28 & D(16) C(3) & B(5) & \\
+        \hline
+        29 & D(15) & C(2) B(4) & \\
+        \hline
+        31 & D(13) & Process C terminates & B(2) \\
+        \hline
+        33 & D(11) &  & Proces B Terminates \\
+        \hline
+        36 & E(33) & D(8) &  \\
+        \hline
+        44 & E(25) & Process D terminates &  \\
+        \hline
+        61 & & E(8) &  \\
+        \hline
+        69 & & & Process E terminates \\
+        \hline
+      \end{tabular}
+    \end{center}
+  \end{homeworkProblem}
+
 \end{document}
