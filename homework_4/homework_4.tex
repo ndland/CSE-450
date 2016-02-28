@@ -130,6 +130,9 @@
 % Alias for the Solution section header
 \newcommand{\solution}{\textsc{\textbf Solution}\\}
 
+% Alias for bold small caps
+\newcommand{\smallcaps}[1]{\textsc{\textbf #1}\\}
+
 \begin{document}
 
   \maketitle
@@ -162,7 +165,7 @@
         \vfill
         \columnbreak
         \item Shortest remaining time first (SRTF)
-        \item Round-robin (RR), quantum = 5
+        \item Round-robin (RR), Quantum = 5
       \end{enumerate}
     \end{multicols}
 
@@ -173,16 +176,110 @@
     \solution
 
     \begin{center}
+      \smallcaps{(a) First-come first-served (FCFS)}
       \begin{tikzpicture}[node distance=-0.5pt]
-        \node [gray box=24] (p1) {\(P_{1}\)};
-        \node [gray box=3, right=of p1] (p2) {\(P_{2}\)};
-        \node [gray box=3, right=of p2] (p3) {\(P_{3}\)};
+        \node [gray box=4] (p1) {\(P_{A}\)};
+        \node [gray box=9, right=of p1] (p2) {\(P_{B}\)};
+        \node [gray box=2, right=of p2] (p3) {\(P_{C}\)};
+        \node [gray box=5, right=of p3] (p4) {\(P_{D}\)};
+        \node [gray box=3, right=of p4] (p5) {\(P_{E}\)};
+        \node [gray box=1, right=of p5] (p6) {\(P_{F}\)};
+        \node [gray box=4, right=of p6] (p7) {\(P_{G}\)};
 
         \node [annotation] at (p1.south west) {0};
-        \node [annotation] at (p1.south east) {24};
-        \node [annotation] at (p2.south east) {27};
-        \node [annotation] at (p3.south east) {30};
+        \node [annotation] at (p1.south east) {4};
+        \node [annotation] at (p2.south east) {13};
+        \node [annotation] at (p3.south east) {15};
+        \node [annotation] at (p4.south east) {20};
+        \node [annotation] at (p5.south east) {23};
+        \node [annotation] at (p6.south east) {24};
+        \node [annotation] at (p7.south east) {28};
       \end{tikzpicture}
+
+      \textbf{Average waiting time:} $(0 + 1 + 8 + 8 + 9 + 10 + 3) \div 7 = 5.6$ \\
+      \textbf{Average completion time:} $(4 + 8 + 10 + 13 + 12 + 11 + 7) \div 7 = 9.3$
+    \end{center}
+
+    \begin{center}
+      \smallcaps{(b) Shortest-job first (SJF)}
+      \begin{tikzpicture}[node distance=-0.5pt]
+        \node [gray box=4] (p1) {\(P_{A}\)};
+        \node [gray box=9, right=of p1] (p2) {\(P_{B}\)};
+        \node [gray box=1, right=of p2] (p3) {\(P_{F}\)};
+        \node [gray box=2, right=of p3] (p4) {\(P_{C}\)};
+        \node [gray box=3, right=of p4] (p5) {\(P_{E}\)};
+        \node [gray box=5, right=of p5] (p6) {\(P_{D}\)};
+        \node [gray box=4, right=of p6] (p7) {\(P_{G}\)};
+
+        \node [annotation] at (p1.south west) {0};
+        \node [annotation] at (p1.south east) {4};
+        \node [annotation] at (p2.south east) {13};
+        \node [annotation] at (p3.south east) {14};
+        \node [annotation] at (p4.south east) {16};
+        \node [annotation] at (p5.south east) {19};
+        \node [annotation] at (p6.south east) {24};
+        \node [annotation] at (p7.south east) {28};
+      \end{tikzpicture}
+
+      \textbf{Average waiting time:} $(0 + 1 + 9 + 9 + 9 + 0 + 3)
+      \div 7 = 4.4$ \\
+      \textbf{Average completion time:} $(4 + 10 + 11 + 14 + 12 + 1 + 7) \div 7 = 8.4$
+    \end{center}
+
+    \begin{center}
+      \smallcaps{(c) Shortest remaining time first {SRTF}}
+      \begin{tikzpicture}[node distance=-0.5pt]
+        \node [gray box=4] (p1) {\(P_{A}\)};
+        \node [gray box=1, right=of p1] (p2) {\(P_{B}\)};
+        \node [gray box=2, right=of p2] (p3) {\(P_{C}\)};
+        \node [gray box=5, right=of p3] (p4) {\(P_{D}\)};
+        \node [gray box=1, right=of p4] (p5) {\(P_{E}\)};
+        \node [gray box=1, right=of p5] (p6) {\(P_{F}\)};
+        \node [gray box=4, right=of p6] (p7) {\(P_{E}\)};
+        \node [gray box=8, right=of p7] (p8) {\(P_{B}\)};
+        \node [gray box=4, right=of p8] (p9) {\(P_{G}\)};
+
+        \node [annotation] at (p1.south west) {0};
+        \node [annotation] at (p1.south east) {4};
+        \node [annotation] at (p2.south east) {5};
+        \node [annotation] at (p3.south east) {7};
+        \node [annotation] at (p4.south east) {12};
+        \node [annotation] at (p5.south east) {13};
+        \node [annotation] at (p6.south east) {14};
+        \node [annotation] at (p7.south east) {16};
+        \node [annotation] at (p8.south east) {24};
+        \node [annotation] at (p9.south east) {28};
+      \end{tikzpicture}
+
+      \textbf{Average waiting time:} $(0 + 12 + 0 + 0 + 2 + 0 + 3) \div 7 = 5$ \\
+      \textbf{Average completion time:} $(4 + 32 + 2 + 5 + 3 + 1 + 7) \div 7 = 14.1$
+    \end{center}
+
+    \begin{center}
+      \smallcaps{(d) Round-robin, Quantum = 5}
+      \begin{tikzpicture}[node distance=-0.5pt]
+        \node [gray box=4] (p1) {\(P_{A}\)};
+        \node [gray box=5, right=of p1] (p2) {\(P_{B}\)};
+        \node [gray box=2, right=of p2] (p3) {\(P_{C}\)};
+        \node [gray box=5, right=of p3] (p4) {\(P_{D}\)};
+        \node [gray box=3, right=of p4] (p5) {\(P_{E}\)};
+        \node [gray box=1, right=of p5] (p6) {\(P_{F}\)};
+        \node [gray box=4, right=of p6] (p7) {\(P_{B}\)};
+        \node [gray box=4, right=of p7] (p8) {\(P_{G}\)};
+
+        \node [annotation] at (p1.south west) {0};
+        \node [annotation] at (p1.south east) {4};
+        \node [annotation] at (p2.south east) {9};
+        \node [annotation] at (p3.south east) {11};
+        \node [annotation] at (p4.south east) {16};
+        \node [annotation] at (p5.south east) {19};
+        \node [annotation] at (p6.south east) {20};
+        \node [annotation] at (p7.south east) {24};
+        \node [annotation] at (p8.south east) {28};
+      \end{tikzpicture}
+
+      \textbf{Average waiting time:} $(0 + 16 + 4 + 4 + 5 + 6 + 3) \div 7 = 5.4$ \\
+      \textbf{Average completion time:} $(4 + 36 + 6 + 9 + 7 + 6 + 7) \div 7 = 10.7$
     \end{center}
   \end{homeworkProblem}
 
