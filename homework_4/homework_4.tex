@@ -286,9 +286,33 @@
   \begin{homeworkProblem}
     A Multilevel feedback queues are shown in the diagram below. The scheduler first executes all processes in Q0. Only when Q0 is empty will it execute processes in Q1, and only when Q0 and Q1 are empty will it execute processes in Q2. A process arriving for Q0 will preempt a process in Q1 or Q2, and a process arriving for Q1 will preempt a process in Q2; a process preempted in this case is put back to the head of the same queue; when this process is scheduled to run next time it will execute for the remaining of its allocated time quantum. A new process entering the system is put in Q0 and is given a time quantum of 8 milliseconds. If it does not finish within this time, it is preempted and moved to the tail of Q1. If Q0 is empty, the process at the head of Q1 is scheduled to run with a time quantum of 16 milliseconds. If it does not finish within this time, it is preempted and moved to the tail of Q2. Processes in Q2 are run on an FCFS basis. \\
 
+    \begin{center}
+      \includegraphics[scale=0.5]{image.png} \\
+    \end{center}
 
+    Given the following arrival time and CPU burst of processes A, B, C, D, and E as shown in table below.
 
+    \begin{center}
+      \begin{tabular}{ | c | c | c |}
+        \hline
+        Task & Arrival Time & Service Time \\
+        \hline
+        A & 0 & 25 \\
+        \hline
+        B & 5 & 28 \\
+        \hline
+        C & 19 & 11 \\
+        \hline
+        D & 25 & 19 \\
+        \hline
+        E & 36 & 33 \\
+        \hline
+      \end{tabular}
+    \end{center}
 
+    \begin{enumerate}[label=\alph*)]
+      \item Show the status of each queue along the time line during the running of the system. You only need to show the status of the system when either 1) a new process arrives, or 2) a process is preempted, or 3) a process terminates. The status includes time stamp, the name of the process and its remaining time in each queue. For example, at time 0, process A is in $Q_0$ and it has 25 time units toward finishing. $Q_1$ and $Q_2$ are empty. You are asked to complete the table with time moment and status of each queue. Moreover, B(x) A(y) shows A is at the head of the queue with x remaining time and B is at the tail of the queue with remaining time of y. You can add new rows to the table if you think the table is not enough to accommodate all the events.
+    \end{enumerate}
 
     \solution
 
