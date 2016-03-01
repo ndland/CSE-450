@@ -325,31 +325,37 @@
         \hline
         5 & B(28) A(20) & & \\
         \hline
-        8 & B(25) A(17) & & \\
+        8 & B(28) & A(17) & \\
         \hline
-        13 & B(20) & A(12) & \\
+        16 & & A(17) B(20) & \\
         \hline
-        19 & C(11) & B(14) A(6) & \\
+        19 & C(11) & A(14) B(20) & \\
         \hline
-        24 & C(6) & B(9) A(1) & \\
+        25 & C(5) D(19) & A(14) B(20) & \\
         \hline
-        25 & D(19) C(5) & B(8) & Process A terminates \\
+        27 & D(19) & A(14) B(20) C(3) & \\
         \hline
-        28 & D(16) C(3) & B(5) & \\
+        35 & & A(14) B(20) C(3) D(11) & \\
         \hline
-        29 & D(15) & C(2) B(4) & \\
+        36 & E(33) & A(13) B(20) C(3) D(11) & \\
         \hline
-        31 & D(13) & Process C terminates & B(2) \\
+        44 & & A(13) B(20) C(3) D(11) E(25) & \\
         \hline
-        33 & D(11) &  & Proces B Terminates \\
+        56 & & B(20) C(3) D(11) E(25) & A(1) \\
         \hline
-        36 & E(33) & D(8) &  \\
+        72 & & C(3) D(11) E(25) & A(1) B(4) \\
         \hline
-        44 & E(25) & Process D terminates &  \\
+        75 & & Process C terminates D(11) E(25) & A(1) B(4) \\
         \hline
-        61 & & E(8) &  \\
+        86 & & Process D terminates E(25) & A(1) B(4) \\
         \hline
-        69 & & & Process E terminates \\
+        102 & & & A(1) B(4) E(9) \\
+        \hline
+        103 & & & Process A terminates B(4) E(9) \\
+        \hline
+        107 & & & Process B terminates E(9) \\
+        \hline
+        116 & & & Process E terminates \\
         \hline
       \end{tabular}
     \end{center}
