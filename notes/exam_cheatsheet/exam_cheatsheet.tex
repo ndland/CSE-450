@@ -4,8 +4,10 @@
 \usepackage{multicol}
 \usepackage[T1]{fontenc}
 \usepackage{lipsum}
+\usepackage{color}
 \usepackage{tikz}
-\usepackage[]{algorithm2e}
+\usepackage[usenames, dvipsnames]{color}
+\usepackage[linesnumbered,boxed,commentsnumbered,lined]{algorithm2e}
 \usetikzlibrary{positioning}
 
 \tikzset{
@@ -39,6 +41,17 @@
     \end{center}
 
     \section*{CPU Scheduling}
+
+    \begin{itemize}
+      \item \textbf{{\color{blue} CPU Utilization}} -- keep the CPU as busy as possible
+      \item \textbf{{\color{blue} Throughput}} -- Number of processes that complete their execution per time unit
+      \item \textbf{{\color{blue} Turnaround time}} -- Amount of time to execute a particular process, from submission until completion (completion time)
+      \item \textbf{{\color{blue} Waiting time}} -- Amount of time a process has been waiting in the ready queue
+      \item \textbf{{\color{blue} Response time}} -- Amount of time it takes from when a request was submitted until the first response is procduced, \textbf{not} output (for time-sharing environment)
+    \end{itemize}
+
+    \smallcaps{Example}
+
     Five tasks A through E, arrive at a computer system at almost the same time.
     They have estimated running times of 10, 6, 2, 4 and 8. For each of the following scheduling algorithms, determine the \textsc{\textbf{average waiting time.}} Ignore process-switching overhead, you need to draw the gantt chart to show the schedule/running behavior of the five tasks.
 
@@ -133,14 +146,31 @@
 
     \section*{Synchronization}
 
-    \begin{multicols*}{2}
+    \begin{itemize}
+      \item {\color{blue} Synchronization} -- Using atomic operations to ensure cooperation between threads
+      \begin{itemize}
+        \item {\color{orange} Atomic} -- Non-interruptible
+      \end{itemize}
+      \item {\color{blue} Critical Section} -- piece of code that only one thread can execute at once. Only on thread at a time will get into this section of code.
+      \begin{itemize}
+        \item {\color{orange} Mutual Exclusion} -- ensuring that only one thread does a particular thing at a time
+        \item {\color{orange} Progress} -- selecting a thread to enter cannot postpone indefinitely
+        \item {\color{orange} Bounded Waiting} -- before entering the critical section
+      \end{itemize}
+    \end{itemize}
+
+    \begin{center}
+      {\color{red} \textbf{!!All synchronization involves waiting!!}}
+    \end{center}
+
+    \begin{multicols}{2}
       \begin{algorithm}[H]
         \While{true}{
-          wait(wrt)\;
+          wait(rw\_mutex)\;
           \tcp{writing is performed}\label{cmt}
-          signal(wrt)\;
+          signal(rw\_mutex)\;
         }
-      \caption{Reader}
+      \caption{Writer}
       \end{algorithm}
 
       \vfill
@@ -151,19 +181,51 @@
           wait(mutex)\;
           readCount$++$\;
           \If{readCount == 1} {
-            wait(wrt)\;
+            wait(rw\_mutex)\;
           }
-          signal(wrt)\;
+          signal(mutex)\;
           \tcp{reading is performed}\label{cmt}
           wait(mutex)\;
           readCount$--$\;
           \If{readCount == 0} {
-            signal(wrt)\;
+            signal(rw\_mutex)\;
           }
           signal(mutex)\;
         }
-      \caption{Writer}
+      \caption{Reader}
       \end{algorithm}
-    \end{multicols*}
+    \end{multicols}
+
+    The reader \& writer share three data structures:
+
+    \begin{itemize}
+      \item semaphore rw\_mutex
+      \begin{itemize}
+        \item this is to ensure mutual exclusion between readers and writers
+      \end{itemize}
+      \item semaphore mutex
+      \begin{itemize}
+        \item this is to ensure mutual exclusion when the variable readCount is updated
+      \end{itemize}
+      \item int readCount
+      \begin{itemize}
+        \item this is to keep track of how many processes are currently reading the object
+      \end{itemize}
+    \end{itemize}
+
+    Since we have semaphores rw\_mutex \& mutex, we know that no two processes can execute {\color{blue}\texttt{wait()}} and {\color{blue}\texttt{signal()}} on the same semaphore at the same time. Because of this, we can see how \textbf{Algorithm 1} \& \textbf{Algorithm 2} adhere to mutual exclusion. \\
+
+    Two operations for semaphores:
+
+    \begin{itemize}
+      \item {\color{blue} \textbf{block}} -- place the process invoking the operation on the appropriate waiting queue
+      \item {\color{blue} \textbf{wakeup}} -- remove one of the processes in the waiting queue and place it in the ready queue
+    \end{itemize}
+
+    \section*{Schedulers}
+
+    \textbf{Long-term} - selects which processes should be brought into ready queue \\
+    \textbf{Short-term} - selects which processes get executed next \\
+    \textbf{Mid-term} - partially executed \\
 
 \end{document}
