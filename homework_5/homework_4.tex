@@ -140,11 +140,121 @@
         \item \smallcaps{Mutual Exclusion} One of the things (get a professional job) is unable to occur because it is dependent on the other (experience), and visa-versa.
         \item \smallcaps{Hold and Wait} This is essentially the same as the previous bullet point.
         \item \smallcaps{No Preemption} This holds because you can't get one without the other. As a result, none of the two 'proceeses` could preempt one another.
-        \item \smallcaps{Circular Wait} This condition is satisfied because if you want the job, you need the experienc, if you want the expirenece, you need the job. That is a continuous cycle.
+        \item \smallcaps{Circular Wait} This condition is satisfied because if you want the job, you need the experience, if you want the expirenece, you need the job. That is a continuous cycle.
       \end{itemize}
       People are able to recover from such deadlock by getting an internship, or an apprenticeship which will give them the experience that they need to get the job. The condition that becomes false is the circular wait. Now, the person has experience and is able to obtain the professional job.
 
       \item Like in the previous example I provided, if the user were able to obtain an internship, then the processes could execute as normal, and all four condtions of deadlock would be satisfied. In this case deadlock would not occur.
+    \end{enumerate}
+  \end{homeworkProblem}
+
+  \begin{homeworkProblem}
+    Consider the following snapshot of a system (P=Process, R=Resource) :
+
+    \begin{center}
+      \begin{tabular}{|c|c|c|c|}
+        \hline
+        \multicolumn{4}{|c|}{Available} \\
+        \hline
+        $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+        \hline
+        1 & 5 & 2 & 0 \\
+        \hline
+      \end{tabular}
+    \end{center}
+
+    \pagebreak
+
+    \begin{center}
+      \begin{multicols}{2}
+        \begin{tabular}{|c|c|c|c|c|}
+          \hline
+          \multicolumn{5}{|c|}{Maximum Demand} \\
+          \hline
+          & $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          $P_0$ & 0 & 3 & 1 & 2 \\
+          \hline
+          $P_1$ & 1 & 7 & 5 & 0 \\
+          \hline
+          $P_2$ & 2 & 3 & 5 & 6 \\
+          \hline
+          $P_3$ & 0 & 6 & 5 & 2 \\
+          \hline
+          $P_4$ & 0 & 6 & 5 & 6 \\
+          \hline
+        \end{tabular}
+
+        \begin{tabular}{|c|c|c|c|c|}
+          \hline
+          \multicolumn{5}{|c|}{Current Allocation} \\
+          \hline
+          & $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          $P_0$ & 0 & 0 & 1 & 2 \\
+          \hline
+          $P_1$ & 1 & 0 & 0 & 0 \\
+          \hline
+          $P_2$ & 1 & 3 & 5 & 4 \\
+          \hline
+          $P_3$ & 0 & 6 & 3 & 2 \\
+          \hline
+          $P_4$ & 0 & 0 & 1 & 4 \\
+          \hline
+        \end{tabular}
+      \end{multicols}
+    \end{center}
+
+    Answer the following questions using banker's algorithm:
+
+    \begin{enumerate}[label=\alph*)]
+      \item Calcualtes the \textit{Needs} matrix:
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|c|}
+          \hline
+          \multicolumn{5}{|c|}{Needs} \\
+          \hline
+          & $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          $P_0$ & & & & \\
+          \hline
+          $P_1$ & & & & \\
+          \hline
+          $P_2$ & & & & \\
+          \hline
+          $P_3$ & & & & \\
+          \hline
+          $P_4$ & & & & \\
+          \hline
+        \end{tabular}
+      \end{center}
+
+      \item Is the system in a safe state?  If so, show how you derive a safe order with Safety Algorithm in which the processes can run. Show the different values of the work vector after each iteration. What is the sequence of processes that the algorithm implicitly created?
+    \end{enumerate}
+
+    \solution
+
+    \begin{enumerate}[label=\alph*)]
+      \item Needs Matrix:
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|c|}
+          \hline
+          \multicolumn{5}{|c|}{Needs} \\
+          \hline
+          & $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          $P_0$ & 0 & 3 & 0 & 0 \\
+          \hline
+          $P_1$ & 0 & 7 & 5 & 0 \\
+          \hline
+          $P_2$ & 1 & 0 & 0 & 2 \\
+          \hline
+          $P_3$ & 0 & 0 & 2 & 0 \\
+          \hline
+          $P_4$ & 0 & 6 & 4 & 2 \\
+          \hline
+        \end{tabular}
+      \end{center}
     \end{enumerate}
   \end{homeworkProblem}
 \end{document}
