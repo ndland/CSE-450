@@ -230,6 +230,8 @@
       \end{center}
 
       \item Is the system in a safe state?  If so, show how you derive a safe order with Safety Algorithm in which the processes can run. Show the different values of the work vector after each iteration. What is the sequence of processes that the algorithm implicitly created?
+
+      \item If a request from process $P_0$ arrives for (0, 3, 0, 0), can the request be granted immediately? Justify your answer, using only the knowledge of the sequence you found at sub-question (b).
     \end{enumerate}
 
     \solution
@@ -340,6 +342,21 @@
           \hline
         \end{tabular}
       \end{center}
+
+      \item The request for $P_0$ can be granted immediately. This is possible because we know that the initial work is:
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+          \hline
+          \multicolumn{4}{|c|}{Work} \\
+          \hline
+          $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          1 & 5 & 2 & 0 \\
+          \hline
+        \end{tabular}
+      \end{center}
+
+      The request of (0,3,0,0) does not exceed the available work of (1,5,2,0). As stated in the previous answer, $P_0$ is the first process in the derived safe order.
     \end{enumerate}
   \end{homeworkProblem}
 \end{document}
