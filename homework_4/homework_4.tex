@@ -8,21 +8,6 @@
 \usepackage{inconsolata}
 \usepackage{multicol}
 \usepackage{enumitem}
-\usepackage{tikz}
-\usetikzlibrary{positioning}
-
-\tikzset{
-  gray box/.style={
-    fill=gray!20,
-    draw=gray,
-    minimum width={2*#1ex},
-    minimum height={2em},
-  },
-  annotation/.style={
-    anchor=north,
-  }
-}
-
 
 %
 % Basic Document Settings
@@ -100,7 +85,7 @@
 %
 
 \newcommand{\hmwkTitle}{Homework\ \#4}
-\newcommand{\hmwkDueDate}{March 1, 2016}
+\newcommand{\hmwkDueDate}{March 23, 2016}
 \newcommand{\hmwkClass}{Operating Systems}
 \newcommand{\hmwkClassTime}{Monday \& Wednesday 3:30pm --- 5:17pm}
 \newcommand{\hmwkClassInstructor}{Professor Qu}
@@ -136,229 +121,242 @@
 \begin{document}
 
   \maketitle
-
   \pagebreak
 
   \begin{homeworkProblem}
+    Answer the following questions
 
-    Consider the following process arrival list:
-
-    \begin{center}
-      \begin{tabular}{c c c}
-        \underline{Name} & \underline{Arrival time} & \underline{Service time} \\
-        A & $0$ & $4$ \\
-        B & $3$ & $9$ \\
-        C & $5$ & $2$ \\
-        D & $7$ & $5$ \\
-        E & $11$ & $3$ \\
-        F & $13$ & $1$ \\
-        G & $21$ & $4$ \\
-      \end{tabular}
-    \end{center}
-
-    Consider the following scheduling methods:
-
-    \begin{multicols}{2}
-      \begin{enumerate}[label=(\alph*)]
-        \item First-come first-served (FCFS)
-        \item Shortest-job first (SJF)
-        \vfill
-        \columnbreak
-        \item Shortest remaining time first (SRTF)
-        \item Round-robin (RR), Quantum = 5
-      \end{enumerate}
-    \end{multicols}
-
-    Draw a Gantt chart (time line) showing which process is executing over time and calculate the average waiting time and average completion time. \\
-
-    Notes : (1) In SRTF, if a process arrives with service time equal to the remaining service time of the process currently being served, the current process is not interrupted. (2) In RR, if a process arrives at the same time a quantum finishes, the running process is preempted and the new arrival executes.  The preempted process goes to the end of the ready queue. (3) Waiting time and completion time is defined as in the slides. \\
-
-    \solution
-
-    \begin{center}
-      \smallcaps{(a) First-come first-served (FCFS)}
-      \begin{tikzpicture}[node distance=-0.5pt]
-        \node [gray box=4] (p1) {\(P_{A}\)};
-        \node [gray box=9, right=of p1] (p2) {\(P_{B}\)};
-        \node [gray box=2, right=of p2] (p3) {\(P_{C}\)};
-        \node [gray box=5, right=of p3] (p4) {\(P_{D}\)};
-        \node [gray box=3, right=of p4] (p5) {\(P_{E}\)};
-        \node [gray box=1, right=of p5] (p6) {\(P_{F}\)};
-        \node [gray box=4, right=of p6] (p7) {\(P_{G}\)};
-
-        \node [annotation] at (p1.south west) {0};
-        \node [annotation] at (p1.south east) {4};
-        \node [annotation] at (p2.south east) {13};
-        \node [annotation] at (p3.south east) {15};
-        \node [annotation] at (p4.south east) {20};
-        \node [annotation] at (p5.south east) {23};
-        \node [annotation] at (p6.south east) {24};
-        \node [annotation] at (p7.south east) {28};
-      \end{tikzpicture}
-
-      \textbf{Average waiting time:} $(0 + 1 + 8 + 8 + 9 + 10 + 3) \div 7 = 5.6$ \\
-      \textbf{Average completion time:} $(4 + 10 + 10 + 13 + 12 + 11 + 7) \div 7 = 9.6$
-    \end{center}
-
-    \begin{center}
-      \smallcaps{(b) Shortest-job first (SJF)}
-      \begin{tikzpicture}[node distance=-0.5pt]
-        \node [gray box=4] (p1) {\(P_{A}\)};
-        \node [gray box=9, right=of p1] (p2) {\(P_{B}\)};
-        \node [gray box=1, right=of p2] (p3) {\(P_{F}\)};
-        \node [gray box=2, right=of p3] (p4) {\(P_{C}\)};
-        \node [gray box=3, right=of p4] (p5) {\(P_{E}\)};
-        \node [gray box=5, right=of p5] (p6) {\(P_{D}\)};
-        \node [gray box=4, right=of p6] (p7) {\(P_{G}\)};
-
-        \node [annotation] at (p1.south west) {0};
-        \node [annotation] at (p1.south east) {4};
-        \node [annotation] at (p2.south east) {13};
-        \node [annotation] at (p3.south east) {14};
-        \node [annotation] at (p4.south east) {16};
-        \node [annotation] at (p5.south east) {19};
-        \node [annotation] at (p6.south east) {24};
-        \node [annotation] at (p7.south east) {28};
-      \end{tikzpicture}
-
-      \textbf{Average waiting time:} $(0 + 1 + 9 + 12 + 5 + 0 + 3)
-      \div 7 = 4.2$ \\
-      \textbf{Average completion time:} $(4 + 10 + 11 + 17 + 8 + 1 + 7) \div 7 = 8.3$
-    \end{center}
-
-    \begin{center}
-      \smallcaps{(c) Shortest remaining time first {SRTF}}
-      \begin{tikzpicture}[node distance=-0.5pt]
-        \node [gray box=4] (p1) {\(P_{A}\)};
-        \node [gray box=1, right=of p1] (p2) {\(P_{B}\)};
-        \node [gray box=2, right=of p2] (p3) {\(P_{C}\)};
-        \node [gray box=5, right=of p3] (p4) {\(P_{D}\)};
-        \node [gray box=1, right=of p4] (p5) {\(P_{E}\)};
-        \node [gray box=1, right=of p5] (p6) {\(P_{F}\)};
-        \node [gray box=4, right=of p6] (p7) {\(P_{E}\)};
-        \node [gray box=8, right=of p7] (p8) {\(P_{B}\)};
-        \node [gray box=4, right=of p8] (p9) {\(P_{G}\)};
-
-        \node [annotation] at (p1.south west) {0};
-        \node [annotation] at (p1.south east) {4};
-        \node [annotation] at (p2.south east) {5};
-        \node [annotation] at (p3.south east) {7};
-        \node [annotation] at (p4.south east) {12};
-        \node [annotation] at (p5.south east) {13};
-        \node [annotation] at (p6.south east) {14};
-        \node [annotation] at (p7.south east) {16};
-        \node [annotation] at (p8.south east) {24};
-        \node [annotation] at (p9.south east) {28};
-      \end{tikzpicture}
-
-      \textbf{Average waiting time:} $(0 + 12 + 0 + 0 + 2 + 0 + 3) \div 7 = 2.4$ \\
-      \textbf{Average completion time:} $(4 + 21 + 2 + 5 + 5 + 1 + 7) \div 7 = 6.4$
-    \end{center}
-
-    \begin{center}
-      \smallcaps{(d) Round-robin, Quantum = 5}
-      \begin{tikzpicture}[node distance=-0.5pt]
-        \node [gray box=4] (p1) {\(P_{A}\)};
-        \node [gray box=5, right=of p1] (p2) {\(P_{B}\)};
-        \node [gray box=2, right=of p2] (p3) {\(P_{C}\)};
-        \node [gray box=5, right=of p3] (p4) {\(P_{D}\)};
-        \node [gray box=4, right=of p4] (p5) {\(P_{B}\)};
-        \node [gray box=3, right=of p5] (p6) {\(P_{E}\)};
-        \node [gray box=1, right=of p6] (p7) {\(P_{F}\)};
-        \node [gray box=4, right=of p7] (p8) {\(P_{G}\)};
-
-        \node [annotation] at (p1.south west) {0};
-        \node [annotation] at (p1.south east) {4};
-        \node [annotation] at (p2.south east) {9};
-        \node [annotation] at (p3.south east) {11};
-        \node [annotation] at (p4.south east) {16};
-        \node [annotation] at (p5.south east) {20};
-        \node [annotation] at (p6.south east) {23};
-        \node [annotation] at (p7.south east) {24};
-        \node [annotation] at (p8.south east) {28};
-      \end{tikzpicture}
-
-      \textbf{Average waiting time:} $(0 + 8 + 4 + 4 + 9 + 10 + 3) \div 7 = 5.4$ \\
-      \textbf{Average completion time:} $(4 + 17 + 6 + 9 + 12 + 11 + 7) \div 7 = 9.4$
-    \end{center}
-  \end{homeworkProblem}
-
-  \begin{homeworkProblem}
-    A Multilevel feedback queues are shown in the diagram below. The scheduler first executes all processes in Q0. Only when Q0 is empty will it execute processes in Q1, and only when Q0 and Q1 are empty will it execute processes in Q2. A process arriving for Q0 will preempt a process in Q1 or Q2, and a process arriving for Q1 will preempt a process in Q2; a process preempted in this case is put back to the head of the same queue; when this process is scheduled to run next time it will execute for the remaining of its allocated time quantum. A new process entering the system is put in Q0 and is given a time quantum of 8 milliseconds. If it does not finish within this time, it is preempted and moved to the tail of Q1. If Q0 is empty, the process at the head of Q1 is scheduled to run with a time quantum of 16 milliseconds. If it does not finish within this time, it is preempted and moved to the tail of Q2. Processes in Q2 are run on an FCFS basis. \\
-
-    \begin{center}
-      \includegraphics[scale=0.5]{image.png} \\
-    \end{center}
-
-    Given the following arrival time and CPU burst of processes A, B, C, D, and E as shown in table below.
-
-    \begin{center}
-      \begin{tabular}{ | c | c | c |}
-        \hline
-        Task & Arrival Time & Service Time \\
-        \hline
-        A & 0 & 25 \\
-        \hline
-        B & 5 & 28 \\
-        \hline
-        C & 19 & 11 \\
-        \hline
-        D & 25 & 19 \\
-        \hline
-        E & 36 & 33 \\
-        \hline
-      \end{tabular}
-    \end{center}
-
-    \begin{enumerate}[label=\alph*)]
-      \item Show the status of each queue along the time line during the running of the system. You only need to show the status of the system when either 1) a new process arrives, or 2) a process is preempted, or 3) a process terminates. The status includes time stamp, the name of the process and its remaining time in each queue. For example, at time 0, process A is in $Q_0$ and it has 25 time units toward finishing. $Q_1$ and $Q_2$ are empty. You are asked to complete the table with time moment and status of each queue. Moreover, B(x) A(y) shows A is at the head of the queue with x remaining time and B is at the tail of the queue with remaining time of y. You can add new rows to the table if you think the table is not enough to accommodate all the events.
+    \begin{enumerate}[label=(\alph*)]
+      \item Describe a real-life deadlock situation. Explain why it satisfies the four necessary conditions (mutual exclusion, hold-and-wait, non-preemption, circular wait). How do people recover from that situation? \\
+      Upon recovery, which condition becomes false?
+      \item Give an example, where the system is not in a safe state, but if the processes of the system are allowed to be executed, then they will be successfully completed.
     \end{enumerate}
 
     \solution
 
+    \begin{enumerate}[label=(\alph*)]
+      \item An example of a real life deadlock would be something like a person trying to get a professional job, but are unable to because they lack the experience to get the job. However, to get the experience, they need to have a job. This satisfies the four condtions of deadlock as follows:
+      \begin{itemize}
+        \item \smallcaps{Mutual Exclusion} One of the things (get a professional job) is unable to occur because it is dependent on the other (experience), and visa-versa.
+        \item \smallcaps{Hold and Wait} This is essentially the same as the previous bullet point.
+        \item \smallcaps{No Preemption} This holds because you can't get one without the other. As a result, none of the two 'proceeses` could preempt one another.
+        \item \smallcaps{Circular Wait} This condition is satisfied because if you want the job, you need the experience, if you want the expirenece, you need the job. That is a continuous cycle.
+      \end{itemize}
+      People are able to recover from such deadlock by getting an internship, or an apprenticeship which will give them the experience that they need to get the job. The condition that becomes false is the circular wait. Now, the person has experience and is able to obtain the professional job.
+
+      \item Like in the previous example I provided, if the user were able to obtain an internship, then the processes could execute as normal, and all four condtions of deadlock would be satisfied. In this case deadlock would not occur.
+    \end{enumerate}
+  \end{homeworkProblem}
+
+  \begin{homeworkProblem}
+    Consider the following snapshot of a system (P=Process, R=Resource) :
+
     \begin{center}
-      \begin{tabular}{| c | c | c | c |}
+      \begin{tabular}{|c|c|c|c|}
         \hline
-        \textbf{Time} & $Q_0$ & $Q_1$ & $Q_2$ \\
+        \multicolumn{4}{|c|}{Available} \\
         \hline
-        0 & A(25) & &  \\
+        $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
         \hline
-        5 & B(28) A(20) & & \\
-        \hline
-        8 & B(28) & A(17) & \\
-        \hline
-        16 & & A(17) B(20) & \\
-        \hline
-        19 & C(11) & A(14) B(20) & \\
-        \hline
-        25 & C(5) D(19) & A(14) B(20) & \\
-        \hline
-        27 & D(19) & A(14) B(20) C(3) & \\
-        \hline
-        35 & & A(14) B(20) C(3) D(11) & \\
-        \hline
-        36 & E(33) & A(13) B(20) C(3) D(11) & \\
-        \hline
-        44 & & A(13) B(20) C(3) D(11) E(25) & \\
-        \hline
-        56 & & B(20) C(3) D(11) E(25) & A(1) \\
-        \hline
-        72 & & C(3) D(11) E(25) & A(1) B(4) \\
-        \hline
-        75 & & Process C terminates D(11) E(25) & A(1) B(4) \\
-        \hline
-        86 & & Process D terminates E(25) & A(1) B(4) \\
-        \hline
-        102 & & & A(1) B(4) E(9) \\
-        \hline
-        103 & & & Process A terminates B(4) E(9) \\
-        \hline
-        107 & & & Process B terminates E(9) \\
-        \hline
-        116 & & & Process E terminates \\
+        1 & 5 & 2 & 0 \\
         \hline
       \end{tabular}
     \end{center}
-  \end{homeworkProblem}
 
+    \pagebreak
+
+    \begin{center}
+      \begin{multicols}{2}
+        \begin{tabular}{|c|c|c|c|c|}
+          \hline
+          \multicolumn{5}{|c|}{Maximum Demand} \\
+          \hline
+          & $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          $P_0$ & 0 & 3 & 1 & 2 \\
+          \hline
+          $P_1$ & 1 & 7 & 5 & 0 \\
+          \hline
+          $P_2$ & 2 & 3 & 5 & 6 \\
+          \hline
+          $P_3$ & 0 & 6 & 5 & 2 \\
+          \hline
+          $P_4$ & 0 & 6 & 5 & 6 \\
+          \hline
+        \end{tabular}
+
+        \begin{tabular}{|c|c|c|c|c|}
+          \hline
+          \multicolumn{5}{|c|}{Current Allocation} \\
+          \hline
+          & $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          $P_0$ & 0 & 0 & 1 & 2 \\
+          \hline
+          $P_1$ & 1 & 0 & 0 & 0 \\
+          \hline
+          $P_2$ & 1 & 3 & 5 & 4 \\
+          \hline
+          $P_3$ & 0 & 6 & 3 & 2 \\
+          \hline
+          $P_4$ & 0 & 0 & 1 & 4 \\
+          \hline
+        \end{tabular}
+      \end{multicols}
+    \end{center}
+
+    Answer the following questions using banker's algorithm:
+
+    \begin{enumerate}[label=\alph*)]
+      \item Calcualtes the \textit{Needs} matrix:
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|c|}
+          \hline
+          \multicolumn{5}{|c|}{Needs} \\
+          \hline
+          & $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          $P_0$ & & & & \\
+          \hline
+          $P_1$ & & & & \\
+          \hline
+          $P_2$ & & & & \\
+          \hline
+          $P_3$ & & & & \\
+          \hline
+          $P_4$ & & & & \\
+          \hline
+        \end{tabular}
+      \end{center}
+
+      \item Is the system in a safe state?  If so, show how you derive a safe order with Safety Algorithm in which the processes can run. Show the different values of the work vector after each iteration. What is the sequence of processes that the algorithm implicitly created?
+
+      \item If a request from process $P_0$ arrives for (0, 3, 0, 0), can the request be granted immediately? Justify your answer, using only the knowledge of the sequence you found at sub-question (b).
+    \end{enumerate}
+
+    \solution
+
+    \begin{enumerate}[label=\alph*)]
+      \item Needs Matrix:
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|c|}
+          \hline
+          \multicolumn{5}{|c|}{Needs} \\
+          \hline
+          & $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          $P_0$ & 0 & 3 & 0 & 0 \\
+          \hline
+          $P_1$ & 0 & 7 & 5 & 0 \\
+          \hline
+          $P_2$ & 1 & 0 & 0 & 2 \\
+          \hline
+          $P_3$ & 0 & 0 & 2 & 0 \\
+          \hline
+          $P_4$ & 0 & 6 & 4 & 2 \\
+          \hline
+        \end{tabular}
+      \end{center}
+
+      \item Derived safe state: \\
+      Initial Work:
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+          \hline
+          \multicolumn{4}{|c|}{Work} \\
+          \hline
+          $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          1 & 5 & 2 & 0 \\
+          \hline
+        \end{tabular}
+      \end{center}
+      \textbf{Derived safe order}: \\
+      <$P_0$>
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+          \hline
+          \multicolumn{4}{|c|}{Work} \\
+          \hline
+          $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          1 & 5 & 3 & 2 \\
+          \hline
+        \end{tabular}
+      \end{center}
+
+      \pagebreak
+
+      \textbf{Derived safe order}: \\
+      <$P_0$, $P_2$>
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+          \hline
+          \multicolumn{4}{|c|}{Work} \\
+          \hline
+          $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          2 & 8 & 8 & 6 \\
+          \hline
+        \end{tabular}
+      \end{center}
+
+      \textbf{Derived safe order}: \\
+      <$P_0$, $P_2$, $P_3$>
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+          \hline
+          \multicolumn{4}{|c|}{Work} \\
+          \hline
+          $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          2 & 14 & 11 & 8 \\
+          \hline
+        \end{tabular}
+      \end{center}
+
+      \textbf{Derived safe order}: \\
+      <$P_0$, $P_2$, $P_3$, $P_4$>
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+          \hline
+          \multicolumn{4}{|c|}{Work} \\
+          \hline
+          $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          2 & 14 & 12 & 12 \\
+          \hline
+        \end{tabular}
+      \end{center}
+
+      \textbf{Derived safe order}: \\
+      <$P_0$, $P_2$, $P_3$, $P_4$, $P_1$>
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+          \hline
+          \multicolumn{4}{|c|}{Work} \\
+          \hline
+          $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          3 & 14 & 12 & 12 \\
+          \hline
+        \end{tabular}
+      \end{center}
+
+      \item The request for $P_0$ can be granted immediately. This is possible because we know that the initial work is:
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+          \hline
+          \multicolumn{4}{|c|}{Work} \\
+          \hline
+          $R_a$ & $R_b$ & $R_c$ & $R_d$ \\
+          \hline
+          1 & 5 & 2 & 0 \\
+          \hline
+        \end{tabular}
+      \end{center}
+
+      The request of (0,3,0,0) does not exceed the available work of (1,5,2,0). As stated in the previous answer, $P_0$ is the first process in the derived safe order.
+    \end{enumerate}
+  \end{homeworkProblem}
 \end{document}
