@@ -1,0 +1,344 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{minted}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{inconsolata}
+\usepackage{multicol}
+\usepackage{enumitem}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+\stepcounter{#1}
+\nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+\ifnum#1>0
+\setcounter{homeworkProblemCounter}{#1}
+\fi
+\section{Problem \arabic{homeworkProblemCounter}}
+\setcounter{partCounter}{1}
+\enterProblemHeader{homeworkProblemCounter}
+}{
+\exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#5}
+\newcommand{\hmwkDueDate}{March 30, 2016}
+\newcommand{\hmwkClass}{Operating Systems}
+\newcommand{\hmwkClassTime}{Monday \& Wednesday 3:30pm --- 5:17pm}
+\newcommand{\hmwkClassInstructor}{Professor Qu}
+\newcommand{\hmwkAuthorName}{Nicholas Land}
+
+%
+% Title Page
+%
+
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 11:59pm}\\
+\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \\ \hmwkClassTime}}
+\vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textsc{\textbf Solution}\\}
+
+% Alias for bold small caps
+\newcommand{\smallcaps}[1]{\textsc{\textbf #1}\\}
+
+\begin{document}
+
+  \maketitle
+  \pagebreak
+
+  \begin{homeworkProblem}
+    Why is the protection of processes' memory space important? Describe a scenario where absence of memory protection leads to problems. \\
+
+    \solution
+
+    Protection of processes' memory space is important because it prevents processes from accessing memory that have not yet been allocated. A scenario in which could cause problems with the absence of memeory protection would be when a process attempts to access memory that hasn't been allocated yet will cause the program to crash.
+  \end{homeworkProblem}
+
+  \begin{homeworkProblem}
+    Consider a system where the virtual memory page size is 1KB (1024 bytes), and main memory consists of 4 page frames, which are empty initially. Now consider a process, which requires 8 pages of storage.  At some point during its execution, the page table is as shown below:
+
+    \begin{center}
+      \begin{tabular}{|c|c|c|}
+        \hline
+        Virtual Page \# & Physical Page \# & Valid Flag \\
+        \hline
+        0 &  & No \\
+        \hline
+        1 &  & No \\
+        \hline
+        2 & 2 & Yes \\
+        \hline
+        3 & 3 & Yes \\
+        \hline
+        4 &  & No \\
+        \hline
+        5 &  & No \\
+        \hline
+        6 & 0 & Yes \\
+        \hline
+        7 & 1 & Yes \\
+        \hline
+      \end{tabular}
+    \end{center}
+
+    \begin{enumerate}
+      \item List the virtual address ranges that will result in a page fault.
+      \item Give the following ordered references to the virtual addresses (i) 4500, (ii) 8000, (iii) 3000, (iv) 1100, please calculate the main memory (physical) addresses. If there is a page fault, please use LRU based page replacement to replace the page. How which page will be affected and compute the physical addresses after the page fault. We assume the reference string is \ldots 2 4 7 3 0 4 3 0 7 5 0 7 6 0 2 3 6 4 7 6 3 2 before the new reference.
+    \end{enumerate}
+
+    \solution
+
+    \begin{enumerate}
+      \item The virtual address ranges that will result in page fault are: \\
+      Page 0: 0 -- 1023 \\
+      Page 1: 1024 -- 2047 \\
+      % Page 2: 2048 -- 3071 \\
+      Page 4: 4096 -- 5119 \\
+      Page 5: 5020 -- 6143 \\
+
+      \pagebreak
+
+      \item References as follows:
+      \begin{enumerate}[label=(\roman*)]
+        \item 4500 is a page fault. Reference string is: \\
+        \begin{center}
+          \begin{tabular}{ccccccccccccccccccccccc}
+            2 & 4 & 7 & 3 & 0 & 4 & 3 & 0 & 7 & 5 & 0 & 7 & 6 & 0 & 2 & 3 & 6 & 4 & 7 & 6 & 3 & 2 & 4 \\
+            2 & 2 & 2 & 2 & 0 & & & & & 0 & & & 0 & & 0 & 0 & & 4 & 4 & & & 2 & 2 \\
+            & 4 & 4 & 4 & 4 & & & & & 5 & & & 5 & & 2 & 2 & & 2 & 7 & & & 7 & 4 \\
+            & & 7 & 7 & 7 & & & & & 7 & & & 7 & & 7 & 3 & & 3 & 3 & & & 3 & 3 \\
+            & & & 3 & 3 & & & & & 3 & & & 6 & & 6 & 6 & & 6 & 6 & & & 6 & 6 \\
+          \end{tabular}
+        \end{center}
+
+        \begin{center}
+          \begin{tabular}{|c|c|c|}
+            \hline
+            Virtual Page \# & Physical Page \# & Valid Flag \\
+            \hline
+            0 &  & No \\
+            \hline
+            1 &  & No \\
+            \hline
+            2 & 2 & Yes \\
+            \hline
+            3 & 3 & Yes \\
+            \hline
+            4 & 1 & Yes \\
+            \hline
+            5 &  & No \\
+            \hline
+            6 & 0 & Yes \\
+            \hline
+            7 & & No \\
+            \hline
+          \end{tabular}
+        \end{center}
+
+        \textit{Page \#} $*$ \textit{Page Size} $+$ \textit{Offset} $=$ \textit{Virtual Address}\\
+        Offset is found by $4500 - (4 * 1024) = 404$ \\
+        Therfore \ldots $4500 = 4 * 1024 + 404$ \\
+        4500 in binary is [100][0110010100] \& our offset (404) in binary is 0110010100. The 100 gets replaced by 01 for our page number which translates to a physical address of [01][0110010100] which is 1428.
+
+        \item After the page replacement, 8000 is a page fault. Reference string is:
+
+        \begin{center}
+          \begin{tabular}{cccccccccccccccccccccccc}
+            2 & 4 & 7 & 3 & 0 & 4 & 3 & 0 & 7 & 5 & 0 & 7 & 6 & 0 & 2 & 3 & 6 & 4 & 7 & 6 & 3 & 2 & 4 & 7 \\
+            2 & 2 & 2 & 2 & 0 & & & & & 0 & & & 0 & & 0 & 0 & & 4 & 4 & & & 2 & 2 & 2\\
+            & 4 & 4 & 4 & 4 & & & & & 5 & & & 5 & & 2 & 2 & & 2 & 7 & & & 7 & 4 & 4 \\
+            & & 7 & 7 & 7 & & & & & 7 & & & 7 & & 7 & 3 & & 3 & 3 & & & 3 & 3 & 3 \\
+            & & & 3 & 3 & & & & & 3 & & & 6 & & 6 & 6 & & 6 & 6 & & & 6 & 6 & 7 \\
+          \end{tabular}
+        \end{center}
+
+        \begin{center}
+          \begin{tabular}{|c|c|c|}
+            \hline
+            Virtual Page \# & Physical Page \# & Valid Flag \\
+            \hline
+            0 &  & No \\
+            \hline
+            1 & & No \\
+            \hline
+            2 & 2 & Yes \\
+            \hline
+            3 & 3 & Yes \\
+            \hline
+            4 & 1 & Yes \\
+            \hline
+            5 &  & No \\
+            \hline
+            6 & & No \\
+            \hline
+            7 & 0 & Yes \\
+            \hline
+          \end{tabular}
+        \end{center}
+
+        Offset is found by $8000 - (7 * 1024) = 832$ \\
+        Therfore \ldots $8000 = 7 * 1024 + 832$ \\
+        8000 in binary is [000111][1101000000] \& our offset (832) in binary is 1101000000. The 000111 gets replaced by 00 for our page number which translates to a physical address of [00][1101000000] which is 832.
+
+        \pagebreak
+
+        \item There is no page fault on 3000 so reference string \& page table remain the same.
+
+        \begin{center}
+          \begin{tabular}{cccccccccccccccccccccccc}
+            2 & 4 & 7 & 3 & 0 & 4 & 3 & 0 & 7 & 5 & 0 & 7 & 6 & 0 & 2 & 3 & 6 & 4 & 7 & 6 & 3 & 2 & 4 & 7 \\
+            2 & 2 & 2 & 2 & 0 & & & & & 0 & & & 0 & & 0 & 0 & & 4 & 4 & & & 2 & 2 & 2\\
+            & 4 & 4 & 4 & 4 & & & & & 5 & & & 5 & & 2 & 2 & & 2 & 7 & & & 7 & 4 & 4 \\
+            & & 7 & 7 & 7 & & & & & 7 & & & 7 & & 7 & 3 & & 3 & 3 & & & 3 & 3 & 3 \\
+            & & & 3 & 3 & & & & & 3 & & & 6 & & 6 & 6 & & 6 & 6 & & & 6 & 6 & 7 \\
+          \end{tabular}
+        \end{center}
+
+        \begin{center}
+          \begin{tabular}{|c|c|c|}
+            \hline
+            Virtual Page \# & Physical Page \# & Valid Flag \\
+            \hline
+            0 &  & No \\
+            \hline
+            1 &  & No \\
+            \hline
+            2 & 2 & Yes \\
+            \hline
+            3 & 3 & Yes \\
+            \hline
+            4 & 1 & Yes \\
+            \hline
+            5 &  & No \\
+            \hline
+            6 & & No \\
+            \hline
+            7 & 0 & Yes \\
+            \hline
+          \end{tabular}
+        \end{center}
+
+        Offset is found by $3000 - (2 * 1024) = 952$ \\
+        Therfore \ldots $3000 = 2 * 1024 + 952$ \\
+        3000 in binary is 0000101110111000. The 10 remains the same for our page number (2) which translates to a physical address of 101110111000 which is 3000
+
+        \item 1100 results in a page fault, reference string is:
+
+        \begin{center}
+          \begin{tabular}{ccccccccccccccccccccccccc}
+            2 & 4 & 7 & 3 & 0 & 4 & 3 & 0 & 7 & 5 & 0 & 7 & 6 & 0 & 2 & 3 & 6 & 4 & 7 & 6 & 3 & 2 & 4 & 7 & 1 \\
+            2 & 2 & 2 & 2 & 0 & & & & & 0 & & & 0 & & 0 & 0 & & 4 & 4 & & & 2 & 2 & 2 & 2 \\
+            & 4 & 4 & 4 & 4 & & & & & 5 & & & 5 & & 2 & 2 & & 2 & 7 & & & 7 & 4 & 4 & 4 \\
+            & & 7 & 7 & 7 & & & & & 7 & & & 7 & & 7 & 3 & & 3 & 3 & & & 3 & 3 & 3 & 1 \\
+            & & & 3 & 3 & & & & & 3 & & & 6 & & 6 & 6 & & 6 & 6 & & & 6 & 6 & 7 & 7 \\
+          \end{tabular}
+        \end{center}
+
+        \begin{center}
+          \begin{tabular}{|c|c|c|}
+            \hline
+            Virtual Page \# & Physical Page \# & Valid Flag \\
+            \hline
+            0 &  & No \\
+            \hline
+            1 & 3 & Yes \\
+            \hline
+            2 & 2 & Yes \\
+            \hline
+            3 & & No \\
+            \hline
+            4 & 1 & Yes \\
+            \hline
+            5 &  & No \\
+            \hline
+            6 & & No \\
+            \hline
+            7 & 0 & Yes \\
+            \hline
+          \end{tabular}
+        \end{center}
+
+        Offset is found by $1100 - (1 * 1024) = 76$ \\
+        Therfore \ldots $1100 = 1 * 1024 + 76$ \\
+        3000 in binary is 0000010001001100. The 100 translates to 011 for our page number (3) which translates to a physical address of 01101001100 which is 844
+      \end{enumerate}
+    \end{enumerate}
+  \end{homeworkProblem}
+\end{document}
