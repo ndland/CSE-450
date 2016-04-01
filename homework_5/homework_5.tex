@@ -8,6 +8,8 @@
 \usepackage{inconsolata}
 \usepackage{multicol}
 \usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
 
 %
 % Basic Document Settings
@@ -214,8 +216,9 @@
 
         \textit{Page \#} $*$ \textit{Page Size} $+$ \textit{Offset} $=$ \textit{Virtual Address}\\
         Offset is found by $4500 - (4 * 1024) = 404$ \\
-        Therfore \ldots $4500 = 4 * 1024 + 404$ \\
-        4500 in binary is [100][0110010100] \& our offset (404) in binary is 0110010100. The 100 gets replaced by 01 for our page number which translates to a physical address of [01][0110010100] which is 1428.
+        
+        $\therefore 4500 = 4 * 1024 + 404$ \\
+        So \ldots virtual page \#4 points to physcial page \#1, so the physical address is $1 * 1024 + 404 = 1428$.
 
         \item After the page replacement, 8000 is a page fault. Reference string is:
 
@@ -254,8 +257,8 @@
         \end{center}
 
         Offset is found by $8000 - (7 * 1024) = 832$ \\
-        Therfore \ldots $8000 = 7 * 1024 + 832$ \\
-        8000 in binary is [000111][1101000000] \& our offset (832) in binary is 1101000000. The 000111 gets replaced by 00 for our page number which translates to a physical address of [00][1101000000] which is 832.
+        $\therefore 8000 = 7 * 1024 + 832$ \\
+        So \ldots virtual page \#7 points to physcial page \#0, so the physical address is $0 * 1024 + 832 = 832$.
 
         \pagebreak
 
@@ -295,9 +298,9 @@
           \end{tabular}
         \end{center}
 
-        Offset is found by $3000 - (2 * 1024) = 952$ \\
-        Therfore \ldots $3000 = 2 * 1024 + 952$ \\
-        3000 in binary is 0000101110111000. The 10 remains the same for our page number (2) which translates to a physical address of 101110111000 which is 3000
+        Offset is found by $3000 - (2* 1024) = 952$ \\
+        $\therefore 3000 = 2 * 1024 + 952$ \\
+        So \ldots virtual page \#2 points to physcial page \#2, so the physical address is $2 * 1024 + 952 = 3000$.
 
         \item 1100 results in a page fault, reference string is:
 
@@ -336,9 +339,38 @@
         \end{center}
 
         Offset is found by $1100 - (1 * 1024) = 76$ \\
-        Therfore \ldots $1100 = 1 * 1024 + 76$ \\
-        3000 in binary is 0000010001001100. The 100 translates to 011 for our page number (3) which translates to a physical address of 01101001100 which is 844
+        $\therefore 1100 = 1 * 1024 + 76$ \\
+        So \ldots virtual page \#1 points to physcial page \#3, so the physical address is $3 * 1024 + 76 = 3148$.
       \end{enumerate}
+    \end{enumerate}
+  \end{homeworkProblem}
+
+  \pagebreak
+
+  \begin{homeworkProblem}
+    Given a computer system with the following paging based addressing for virtual addresses. Please answer the following questions:
+
+    \begin{center}
+      \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        2 bits & 5 bits & 5 bits & 5 bits & 7 bits \\
+        \hline
+      \end{tabular}
+    \end{center}
+
+    \begin{enumerate}
+      \item What is the size of the virtual address space?
+      \item What is the page size?
+      \item What is the maximum number of pages for a process?
+      \item Given the system has a TLB hit ratio of 99\% and page fault rate of 1\%. Please formulate the effective memory access time.
+    \end{enumerate}
+
+    \solution
+
+    \begin{enumerate}
+      \item The virtual address space is: $2 + 5 + 5 + 5 + 7 = 24 \implies 2^{24} = 16,777,216$ bytes or 16 MB.
+      \item The page offset field is $7$ $\therefore$ $2^7 = 128$ bytes.
+      \item The number of pages for each process is $2^{24}$\big/ $2^{7} = 2^{17} \implies 131,072$
     \end{enumerate}
   \end{homeworkProblem}
 \end{document}
