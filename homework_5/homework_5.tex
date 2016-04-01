@@ -216,7 +216,7 @@
 
         \textit{Page \#} $*$ \textit{Page Size} $+$ \textit{Offset} $=$ \textit{Virtual Address}\\
         Offset is found by $4500 - (4 * 1024) = 404$ \\
-        
+
         $\therefore 4500 = 4 * 1024 + 404$ \\
         So \ldots virtual page \#4 points to physcial page \#1, so the physical address is $1 * 1024 + 404 = 1428$.
 
@@ -371,6 +371,35 @@
       \item The virtual address space is: $2 + 5 + 5 + 5 + 7 = 24 \implies 2^{24} = 16,777,216$ bytes or 16 MB.
       \item The page offset field is $7$ $\therefore$ $2^7 = 128$ bytes.
       \item The number of pages for each process is $2^{24}$\big/ $2^{7} = 2^{17} \implies 131,072$
+      \item Effective memory access time is: \\
+      $(\mbox{TLB Lookup} + \mbox{Memory Access Time}) * .99 + (\mbox{TLB Lookup} + 2 (\mbox{Memory Access Time})) * .01$
+    \end{enumerate}
+  \end{homeworkProblem}
+
+  \begin{homeworkProblem}
+    Consider a system with 1MB of available memory and requests for 42KB, 396KB, 10KB, and 28KB. The system is using Buddy Allocation Algorithm.
+
+    \begin{enumerate}[label=\alph*)]
+      \item Show the amount of memory allocated for each request and the state of memory after each request. Assume there is no memory release.
+      \item Why does internal fragmentation occur with buddy allocation? How much internal fragmentation exists in this scenario?
+      \item Why does external fragmentation occur with buddy allocation? How much external fragmentation exists in this scenario?
+    \end{enumerate}
+
+    \pagebreak
+
+    \solution
+
+    \begin{enumerate}[label=\alph*)]
+      \item 42KB $\implies$ 64KB : \textbf{64KB} 64KB 128KB 256KB 512KB \\
+            396KB $\implies$ 512KB : \textbf{64KB} 64KB 128KB 256KB \textbf{512KB} \\
+            10KB $\implies$ 16KB : \textbf{64KB} \textbf{16KB} 16KB 32KB 64KB 128KB 256KB \textbf{512KB} \\
+            28KB $\implies$ 32KB : \textbf{64KB} \textbf{16KB} 16KB \textbf{32KB} 64KB 128KB 256KB \textbf{512KB} \\
+
+            Key: \textbf{Bold} font denotes allocated memory.
+      \item Internal fragmentation is wasted memory visible only to the process making the memory request. Internal fragmentation occurs in buddy allocation because memory requests must be rounded up to the nearest power of 2. \\
+      Amount of internal fragmentation: $(64-42) + (512-396) + (16-10) + (32 - 28) = 148KB$
+      \item External fragmentation is wasted memory visible to the system outside of the requesting processes. External fragmentation occurs because not all requests (even after they've been rounded up to the nearest power of two) are the same size; therefore, it is possible that a memory request will not be able to satisfied, even when there is enough total free memory in the system. \\
+      Amount of external fragmentation: $16 + 128 + 256 = 400KB$
     \end{enumerate}
   \end{homeworkProblem}
 \end{document}
