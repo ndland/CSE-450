@@ -1,0 +1,193 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{minted}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{inconsolata}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+\stepcounter{#1}
+\nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+\ifnum#1>0
+\setcounter{homeworkProblemCounter}{#1}
+\fi
+\section{Problem \arabic{homeworkProblemCounter}}
+\setcounter{partCounter}{1}
+\enterProblemHeader{homeworkProblemCounter}
+}{
+\exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#6}
+\newcommand{\hmwkDueDate}{April 11, 2016}
+\newcommand{\hmwkClass}{Operating Systems}
+\newcommand{\hmwkClassTime}{Monday \& Wednesday 3:30pm --- 5:17pm}
+\newcommand{\hmwkClassInstructor}{Professor Qu}
+\newcommand{\hmwkAuthorName}{Nicholas Land}
+
+%
+% Title Page
+%
+
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 11:59pm}\\
+\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \\ \hmwkClassTime}}
+\vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textsc{\textbf Solution}\\}
+
+% Alias for bold small caps
+\newcommand{\smallcaps}[1]{\textsc{\textbf #1}\\}
+
+\begin{document}
+
+  \maketitle
+  \pagebreak
+
+  \begin{homeworkProblem}
+    For each part of this question, assume that the disk has a total of 100 cylinders.
+
+    \begin{enumerate}[label=\alph*)]
+      \item Suppose that the disk head scheduling policy is shortest seek time first (SSTF). The disk heads are currently positioned over cylinder 42 and requests are queue for data on cylinders
+      \begin{center}
+        27, 40, 90, 37, 15, 67
+      \end{center}
+      What will be the total distance (in cylinders) traveled by the disk heads to serve the six queued requests?
+      \item Suppose instead that the disk head scheduling policy is SCAN (elevator). The disk heads are initially positioned over cylinder 42 and the current direction of travel of the heads is `up', i.e., towards higher numbered cylinders. For the same set of queued requests given in part (a), what will be the total distance (in cylinders) traveled by the disk heads to service the requests?
+    \end{enumerate}
+
+    \solution
+
+    \begin{enumerate}[label=\alph*)]
+      \item SSTF
+      \begin{tabbing}
+        \textbf{Read order:} \= 40, 37, 27, 15, 67, 90 \\
+        \textbf{distance:} \> $2 + 3 + 10 + 12 + 52 + 23 = 102$
+      \end{tabbing}
+
+      \item SCAN
+      \begin{tabbing}
+        \textbf{Read order:} \= 90, 67, 40, 37, 27, 15 \\
+        \textbf{distance:} \> $48 + 23 + 27 + 3 + 10 + 12 = 123$
+      \end{tabbing}
+    \end{enumerate}
+  \end{homeworkProblem}
+
+  \begin{homeworkProblem}
+    Consider a File system that maintains unique index node for each file in the system. Each index node includes 8 direct pointers, a single indirect pointer, and a double indirect pointer. The file system block size is 1024 bytes, and a block pointer occupies 4 bytes.
+
+    \begin{enumerate}[label=\alph*)]
+      \item What is the maximum file size that can be supported by the index node?
+      \item How many disk operation will be required if a process read data from the Nth block of a file? Assume that the file is already open, the buffer cache is empty, and each disk operation read a single file block. Your answer should be given in terms of N.
+      \item How much space (including overhead) does a file that is 1025 bytes long?
+      \item How much space (including overhead) does a file that is 65536 (64KB) bytes long?
+    \end{enumerate}
+
+    \pagebreak
+
+    \solution
+
+    \begin{enumerate}[label=\alph*)]
+      \item $2^{13} + 2^{18} + 2^{26}$
+      \item
+      \begin{itemize}
+        \item If $0 \le N < 8$ One operation is needed
+        \item If $8 \le N < 256 + 8$ Two operations are needed
+        \item If $256 + 8 \le N < 2^{13} + 2^{18} + 2^{26}$ Three operations are needed
+      \end{itemize}
+      \item $128 + 1024 = 1152$ bytes
+      \item $128 + 65536 = 66688$ bytes
+    \end{enumerate}
+  \end{homeworkProblem}
+
+  \begin{homeworkProblem}
+    Suppose a file system can have three disk allocation strategies, contiguous, linked, and indexed. We have just read the information for a file from its parent directory. For contiguous and linked allocation, this gives the address of the first block, and for indexed allocation this gives the address of the index block. Now we want to read the 10th data block into the memory. How many disk blocks (N) do we have to read for each of the allocation strategies? \textit{For partial credit, explicitly list which block(s) you have to read.} \\
+
+    \solution
+
+    Contiguous allocation : 1 block \\
+    Linked allocation : 10 blocks \\
+    Indexed allocation : 2 blocks
+  \end{homeworkProblem}
+\end{document}
