@@ -108,9 +108,9 @@
       \item $1024 * (10 + 2^8 + 2^8 * 2^8)$ \\
         $\implies 2^{10} * (2^3 + 2 + 2^8 + 2^{16})$ \\
         $\implies 2^{13} + 2^{11} + 2^{18} + 2^{26}$ \\
-      \item $0 \le N < 8$, One operation \\
-        $8 \le N < 256 + 8$, Two operations \\
-        $256 + 8 \le N < 2^{13} + 2^{11} + 2^{18} + 2^{26}$, Three operations
+      \item $0 \le N < 10$, One operation \\
+        $10 \le N < 256 + 10$, Two operations \\
+        $256 + 10 \le N < 2^{13} + 2^{11} + 2^{18} + 2^{26}$, Three operations
     \end{enumerate}
 
     \section*{Disk Scheduling}
@@ -150,5 +150,56 @@
     start with the initial work, and we check the current allocation and if that is less than the
     current work, that process is added to safe state \& then we add the current allocation to the
     work available.
+
+    \section*{Segmentation}
+
+    A virtual memory system supports 12 bits length virtual addresses. It uses pure segmentation
+    with a maximum segment size of $2^{10}$ (1024) bytes. Suppose that the segment table for the
+    currently running process looks as follows:
+
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      Segment \# & V & P & Start & Length \\
+      \hline
+      0 & 1 & 1 & 0 & 200 \\
+      \hline
+      1 & 1 & 0 & 1000 & 160 \\
+      \hline
+      2 & 0 & 0 & 0 & 0 \\
+      \hline
+      3 & 1 & 0 & 200 & 300 \\
+      \hline
+    \end{tabular}
+
+    In the table above V and P are the segment `valid' and `protection' bits, `start' represents the
+    physical address of the start of the segment and `Length' is the segments's length. $P = 1$
+    indicates that a segment is read-only.
+
+    Consider the following read and write operations. If the specified operation would succeed given
+    the segment table shown above, give the physical address to which the specified virtual address
+    would translate. If it would not succeed, state the reason that it would fail.
+
+    \begin{enumerate}
+      \item A write to virtual address 150
+      \item A read from virtual address 1025
+      \item A write to virtual address 400
+    \end{enumerate}
+
+    \smallcaps{Solution}
+
+    \begin{enumerate}
+      \item
+        $150 = (0 \times 1024) + 150$ \\
+        $150 < 200$ \\
+        This would fail because there is a protection bit $\implies$ read-only.
+      \item
+        $1025 = (1 \times 1024) + 1$ \\
+        $1 < 1160$ \\
+        Physical address $= 1001$.
+      \item
+        $4000 = (3 \times 1024) + 928$ \\
+        $928 > 500$ \\
+        This would fail because of a trap: Addressing error.
+    \end{enumerate}
   \end{multicols}
 \end{document}
