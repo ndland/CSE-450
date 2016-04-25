@@ -7,6 +7,7 @@
 \usepackage{color}
 \usepackage{tikz}
 \usepackage{amsmath}
+\usepackage{graphicx}
 \usepackage[usenames, dvipsnames]{color}
 \usepackage[linesnumbered,boxed,commentsnumbered,lined]{algorithm2e}
 \usetikzlibrary{positioning}
@@ -113,6 +114,13 @@
         $256 + 10 \le N < 2^{13} + 2^{11} + 2^{18} + 2^{26}$, Three operations
     \end{enumerate}
 
+    \begin{itemize}
+      \item Contiguous Allocation : Each file occupies a set of contiguous blocks on the disk.
+      \item Linked Allocation : Each file is a linked list of disk blocks: blocks may be scattered
+        anywhere on the disk.
+      \item Indexed Allocation : Brings all pointers together into the index block.
+    \end{itemize}
+
     \section*{Disk Scheduling}
 
     \begin{itemize}
@@ -201,5 +209,28 @@
         $928 > 500$ \\
         This would fail because of a trap: Addressing error.
     \end{enumerate}
+
+    \section*{Buddy Algorithm}
+    \begin{center}
+      \includegraphics[scale=0.4]{buddy_algorithm.png} \\
+    \end{center}
+
+    This would represent a request for $<$ 4KB. In the example above one of the 4KB blocks would be
+    allocated to the current request.
+
+    Internal fragmentation is wasted memory visible only to the process making the memory request.
+    Internal fragmentation occurs in buddy allocation because memory requests must be rounded up to
+    the nearest power of 2.
+
+    So, for example if we had a request of 2KB, then the internal fragmentation would be $4KB - 2KB
+    = 2KB$
+
+    External fragmentation is wasted memory visible to the system outside of the requesting
+    processes. External fragmentation occurs because not all requests (even after they've been
+    rounded up to the nearest power of two) are the same size; therefore, it is possible that a
+    memory request will not be able to satisfied, even when there is enough total free memory in the
+    system.
+
+    Basically: External fragmentation is because it's not contiguous.
   \end{multicols}
 \end{document}
