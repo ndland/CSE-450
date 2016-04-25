@@ -114,6 +114,14 @@
         $256 + 10 \le N < 2^{13} + 2^{11} + 2^{18} + 2^{26}$, Three operations
     \end{enumerate}
 
+    \# 6 part c:
+    \begin{itemize}
+      \item $1 \le N < 10$, One operation
+      \item $10 \le N$, $1 + ceiling(\frac{n - 10}{255})$
+    \end{itemize}
+
+    Allocations
+
     \begin{itemize}
       \item Contiguous Allocation : Each file occupies a set of contiguous blocks on the disk.
       \item Linked Allocation : Each file is a linked list of disk blocks: blocks may be scattered
